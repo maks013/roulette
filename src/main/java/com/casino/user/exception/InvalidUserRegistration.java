@@ -1,4 +1,4 @@
-package com.casino.domain.user.exception;
+package com.casino.user.exception;
 
 public class InvalidUserRegistration extends RuntimeException {
     public InvalidUserRegistration(){

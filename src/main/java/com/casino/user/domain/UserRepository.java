@@ -1,12 +1,10 @@
-package com.casino.domain.user;
+package com.casino.user.domain;
 
 import java.util.Optional;
 
 interface UserRepository {
 
     Optional<User> findByUsername(String username);
-
-    Optional<User> findById(String id);
 
     User save(User user);
 }

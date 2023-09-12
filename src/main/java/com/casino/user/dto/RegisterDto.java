@@ -1,4 +1,4 @@
-package com.casino.domain.user.dto;
+package com.casino.user.dto;
 
 public record RegisterDto(String username,
                           String password) {
