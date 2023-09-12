@@ -16,7 +16,7 @@ class InMemoryUserRepository implements UserRepository {
                 .filter(user -> user.username().equals(username))
                 .findFirst();
     }
-    
+
     @Override
     public User save(User userData) {
         User user = new User(
@@ -28,5 +28,4 @@ class InMemoryUserRepository implements UserRepository {
 
         return user;
     }
-
 }

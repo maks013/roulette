@@ -4,6 +4,7 @@ package com.casino.user.domain;
 import com.casino.user.dto.RegisterDto;
 import com.casino.user.dto.RegistrationResultDto;
 import com.casino.user.dto.UserDto;
+import com.casino.user.exception.InvalidUserRegistration;
 import com.casino.user.exception.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserFacadeTest {
 
-    UserFacade userFacade = new UserFacade(new InMemoryUserRepository());
+    private static final UserFacade userFacade = new UserFacade(new InMemoryUserRepository());
 
     @Test
     void should_throw_exception_when_user_not_found() {
@@ -49,4 +50,15 @@ class UserFacadeTest {
         //then
         assertEquals(userDto.username(), "username");
     }
+
+    @Test
+    void should_throw_exception_when_user_registration_data_is_null() {
+        //given
+        RegisterDto registerDto = new RegisterDto(null, "password");
+
+        //when
+        //then
+        assertThrows(InvalidUserRegistration.class, () -> userFacade.register(registerDto));
+    }
+
 }
