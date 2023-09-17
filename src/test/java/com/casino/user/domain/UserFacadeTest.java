@@ -33,7 +33,7 @@ class UserFacadeTest {
 
         //then
         assertAll(
-                () -> assertEquals(userDto.username(), "username"),
+                () -> assertEquals("username", userDto.username()),
                 () -> assertTrue(registrationResultDto.created())
         );
     }
@@ -48,7 +48,7 @@ class UserFacadeTest {
         UserDto userDto = userFacade.findByUsername("username");
 
         //then
-        assertEquals(userDto.username(), "username");
+        assertEquals("username",userDto.username());
     }
 
     @Test
