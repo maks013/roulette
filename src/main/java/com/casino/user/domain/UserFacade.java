@@ -13,9 +13,10 @@ public class UserFacade {
     public UserDto findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(user -> new UserDto(
-                        user.id(),
-                        user.username(),
-                        user.password()))
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword()
+                ))
                 .orElseThrow(UserNotFoundException::new);
     }
 
@@ -30,6 +31,6 @@ public class UserFacade {
                     .build();
         }
         User userResult = userRepository.save(user);
-        return new RegistrationResultDto(userResult.id(), true, userResult.username());
+        return new RegistrationResultDto(userResult.getId(), true, userResult.getUsername());
     }
 }

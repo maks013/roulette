@@ -1,13 +1,12 @@
 package com.casino.user.domain;
 
 import lombok.Builder;
+import lombok.Data;
 
-record User(
-        String id,
-        String username,
-        String password
-) {
-    @Builder
-    User {
-    }
+@Data
+@Builder
+class User {
+    String id;
+    String username;
+    String password;
 }

@@ -13,7 +13,7 @@ class InMemoryUserRepository implements UserRepository {
     public Optional<User> findByUsername(String username) {
         return inMemoryDatabase.values()
                 .stream()
-                .filter(user -> user.username().equals(username))
+                .filter(user -> user.getUsername().equals(username))
                 .findFirst();
     }
 
@@ -21,8 +21,8 @@ class InMemoryUserRepository implements UserRepository {
     public User save(User userData) {
         User user = new User(
                 ACCOUNT_ID,
-                userData.username(),
-                userData.password()
+                userData.getUsername(),
+                userData.getPassword()
         );
         inMemoryDatabase.put(ACCOUNT_ID, user);
 
