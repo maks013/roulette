@@ -1,5 +1,7 @@
 package com.casino.user.domain;
 
+import com.casino.balance.domain.BalanceFacade;
+import com.casino.balance.domain.InMemoryBalanceRepository;
 import com.casino.user.dto.RegisterDto;
 import com.casino.user.dto.RegistrationResultDto;
 import com.casino.user.dto.UserDto;
@@ -16,7 +18,8 @@ class UserFacadeTest {
 
     private final UserFacade userFacade = new UserFacade(
             inMemoryUserRepository,
-            new UserDataValidatorForTests(inMemoryUserRepository)
+            new UserDataValidatorForTests(inMemoryUserRepository),
+            new BalanceFacade(new InMemoryBalanceRepository())
     );
 
     @Test

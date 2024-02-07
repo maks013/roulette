@@ -1,5 +1,6 @@
 package com.casino.user.domain;
 
+import com.casino.balance.domain.BalanceFacade;
 import com.casino.user.dto.RegisterDto;
 import com.casino.user.dto.RegistrationResultDto;
 import com.casino.user.dto.UserDto;
@@ -12,16 +13,21 @@ public class UserFacade {
 
     private final UserRepository repository;
     private final UserValidationService userValidationService;
+    private final BalanceFacade balanceFacade;
 
     public RegistrationResultDto register(RegisterDto registerDto) {
         final User user;
         verifyRegistrationData(registerDto);
+
         user = User.builder()
                 .username(registerDto.username())
                 .email(registerDto.email())
                 .password(registerDto.password())
                 .build();
+
         UserDto savedUser = repository.save(user).toDto();
+        balanceFacade.createBalance(savedUser.id());
+
         return new RegistrationResultDto(savedUser.id(), true, savedUser.username());
     }
 
