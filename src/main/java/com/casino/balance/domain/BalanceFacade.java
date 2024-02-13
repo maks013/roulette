@@ -43,7 +43,7 @@ public class BalanceFacade {
                 .build();
     }
 
-    public BalanceDto getBalanceById(Long id) {
+    public BalanceDto findBalanceById(Long id) {
         final Balance balance = getBalance(id);
 
         return BalanceDto.builder()
@@ -51,7 +51,6 @@ public class BalanceFacade {
                 .value(balance.getBalanceValue().getValueAsBigDecimal())
                 .build();
     }
-
 
     private Balance getBalance(Long id) {
         return balanceRepository.findById(id).orElseThrow(BalanceNotFound::new);
