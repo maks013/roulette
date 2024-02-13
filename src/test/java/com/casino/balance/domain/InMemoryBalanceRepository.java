@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryBalanceRepository implements BalanceRepository {
+class InMemoryBalanceRepository implements BalanceRepository {
 
     Map<Long, Balance> inMemoryRepo = new ConcurrentHashMap<>();
 

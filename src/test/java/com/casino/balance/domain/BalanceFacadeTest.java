@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BalanceFacadeTest {
 
-    private final BalanceFacade balanceFacade = new BalanceFacade(new InMemoryBalanceRepository());
+    private final BalanceFacade balanceFacade = new BalanceFacadeConfigForTests().balanceFacade();
 
     BigDecimal getValueAsBigDecimal(BigDecimal value) {
         return value.setScale(2, RoundingMode.HALF_EVEN);
@@ -112,7 +112,7 @@ class BalanceFacadeTest {
         final Long notExistingId = 99L;
         //when
         //then
-        assertThrows(BalanceNotFound.class,()->balanceFacade.getBalanceById(notExistingId));
+        assertThrows(BalanceNotFound.class,()->balanceFacade.findBalanceById(notExistingId));
     }
 
     @Test
@@ -120,7 +120,7 @@ class BalanceFacadeTest {
         //given
         final Long existingId = 1L;
         //when
-        BalanceDto balanceDto = balanceFacade.getBalanceById(existingId);
+        BalanceDto balanceDto = balanceFacade.findBalanceById(existingId);
         //then
         assertAll(
                 () -> assertEquals(existingId,balanceDto.id()),
