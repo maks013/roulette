@@ -16,7 +16,6 @@ class InMemoryUserRepository implements UserRepository{
         inMemoryRepo.put(1L, USER1);
     }
 
-
     @Override
     public boolean existsByUsername(String username) {
         return inMemoryRepo.values()
