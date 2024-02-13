@@ -2,14 +2,12 @@ package com.casino.game.domain;
 
 import com.casino.bet.domain.BetType;
 import com.casino.game.dto.GameDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
