@@ -2,11 +2,18 @@ package com.casino.balance.domain;
 
 import com.casino.balance.exception.InvalidDeposit;
 import com.casino.balance.exception.InvalidWithdraw;
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-record BalanceValue(BigDecimal value) implements Comparable<BalanceValue> {
+@AllArgsConstructor
+class BalanceValue implements Comparable<BalanceValue> {
+
+    private BigDecimal value;
 
     static BalanceValue emptyForNewAccount() {
         return new BalanceValue(BigDecimal.ZERO);

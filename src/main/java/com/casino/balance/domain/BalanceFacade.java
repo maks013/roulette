@@ -4,7 +4,9 @@ import com.casino.balance.dto.*;
 import com.casino.balance.exception.BalanceNotFound;
 import com.casino.balance.exception.InvalidBalanceCreation;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class BalanceFacade {
 

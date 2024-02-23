@@ -2,6 +2,7 @@ package com.casino.balance.domain;
 
 import com.casino.balance.dto.BalanceDto;
 import com.casino.balance.exception.InvalidBalanceCreation;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,15 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Entity(name = "balances")
 @NoArgsConstructor
 @AllArgsConstructor
 class Balance {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Convert(converter = BalanceValueConverter.class)
     private BalanceValue balanceValue;
     private Long userId;
 
@@ -38,6 +43,7 @@ class Balance {
         return BalanceDto.builder()
                 .id(id)
                 .value(this.balanceValue.getValueAsBigDecimal())
+                .userId(userId)
                 .build();
     }
 }

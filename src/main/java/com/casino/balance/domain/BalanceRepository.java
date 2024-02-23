@@ -1,10 +1,8 @@
 package com.casino.balance.domain;
 
-import java.util.Optional;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-interface BalanceRepository {
-
-    Optional<Balance> findById(Long id);
-
-    Balance save(Balance balance);
+@Repository
+interface BalanceRepository extends CrudRepository<Balance, Long> {
 }
