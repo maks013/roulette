@@ -7,5 +7,5 @@ interface UserValidationService {
     void isEmailAvailable(String email);
 
     void validateEmailFormat(String email);
-    
+
 }

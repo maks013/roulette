@@ -7,13 +7,17 @@ import com.casino.user.dto.UserDto;
 import com.casino.user.exception.InvalidUserRegistration;
 import com.casino.user.exception.UserNotFound;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class UserFacade {
 
     private final UserRepository repository;
     private final UserValidationService userValidationService;
     private final BalanceFacade balanceFacade;
+    private final PasswordEncoder bCryptEncoder;
 
     public RegistrationResultDto register(RegisterDto registerDto) {
         final User user;
@@ -22,7 +26,8 @@ public class UserFacade {
         user = User.builder()
                 .username(registerDto.username())
                 .email(registerDto.email())
-                .password(registerDto.password())
+                .password(bCryptEncoder.encode(registerDto.password()))
+                .role(User.Role.USER)
                 .build();
 
         UserDto savedUser = repository.save(user).toDto();

@@ -8,6 +8,7 @@ import com.casino.user.exception.InvalidEmailFormat;
 import com.casino.user.exception.TakenEmail;
 import com.casino.user.exception.TakenUsername;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,8 @@ class UserFacadeTest {
     private final UserFacade userFacade = new UserFacade(
             inMemoryUserRepository,
             new UserDataValidatorForTests(inMemoryUserRepository),
-            new BalanceFacadeConfigForTests().balanceFacade()
+            new BalanceFacadeConfigForTests().balanceFacade(),
+            new BCryptPasswordEncoder()
     );
 
     @Test
@@ -77,8 +79,6 @@ class UserFacadeTest {
         //then
         assertAll(
                 () -> assertEquals(registrationResult.id(), userDto.id()),
-                () -> assertEquals(username, userDto.username()),
-                () -> assertEquals(password, userDto.password())
-        );
+                () -> assertEquals(username, userDto.username()));
     }
 }

@@ -1,14 +1,16 @@
 package com.casino.user.domain;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 
-interface UserRepository {
+@Repository
+interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
-
-    User save(User user);
 
     Optional<User> findByUsername(String username);
 }
