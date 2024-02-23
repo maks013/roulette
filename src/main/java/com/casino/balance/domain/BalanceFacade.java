@@ -51,6 +51,7 @@ public class BalanceFacade {
         return BalanceDto.builder()
                 .id(balance.getId())
                 .value(balance.getBalanceValue().getValueAsBigDecimal())
+                .userId(balance.getUserId())
                 .build();
     }
 
