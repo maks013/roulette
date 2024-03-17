@@ -1,9 +1,11 @@
 package com.casino.game.domain;
 
 import com.casino.bet.domain.BetType;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 class GameWinningGenerator {
 
     BetType generateWinningBetType() {
