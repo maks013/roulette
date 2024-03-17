@@ -6,6 +6,9 @@ spring:
   jpa.hibernate:
     ddl-auto: update
 
+scheduling:
+  enabled: true
+
 auth:
   jwt:
     expirationDays: 5
