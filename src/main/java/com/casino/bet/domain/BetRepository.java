@@ -1,15 +1,12 @@
 package com.casino.bet.domain;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.Optional;
 
-interface BetRepository {
-
-    Bet save(Bet bet);
-
-    Optional<Bet> findById(Long id);
-
-    List<Bet> findAll();
+@Repository
+interface BetRepository extends JpaRepository<Bet, Long> {
 
     List<Bet> findAllByUserId(Long userId);
 

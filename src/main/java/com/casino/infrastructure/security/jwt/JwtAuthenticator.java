@@ -2,17 +2,16 @@ package com.casino.infrastructure.security.jwt;
 
 
 import com.auth0.jwt.JWT;
-import com.casino.infrastructure.security.jwt.properties.JwtConfigurationProperties;
-import com.casino.user.domain.UserFacade;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.casino.infrastructure.security.jwt.properties.JwtConfigurationProperties;
 import com.casino.user.dto.LoginRequestDto;
 import com.casino.user.dto.LoginResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import org.springframework.security.core.Authentication;
 
 import java.time.*;
 
@@ -23,7 +22,6 @@ public class JwtAuthenticator {
     private final AuthenticationManager authenticationManager;
     private final Clock clock;
     private final JwtConfigurationProperties properties;
-    private final UserFacade userFacade;
 
     public LoginResponseDto authenticate(LoginRequestDto loginRequest) {
         Authentication authenticate = authenticationManager.authenticate(
