@@ -11,6 +11,7 @@ public record BetPlacedResult(
         boolean placed,
         BigDecimal placedAmount,
         LocalDateTime timeOfPlacement,
-        String betType
+        String betType,
+        Long gameId
 ) {
 }
