@@ -24,7 +24,7 @@ public class BetFacade {
 
     public BetPlacedResult placeBet(PlaceBet placeBet) {
         final LocalDateTime timeOfPlacement = LocalDateTime.now();
-        Long gameId = gameFacade.findGameByTime(timeOfPlacement).id();
+        Long gameId = gameFacade.findGameByTime(timeOfPlacement).id() + 1L;
 
         if (!isUserBetAllowed(findAllBetsByGameIdAndUserId(gameId, placeBet.userId()), placeBet.betType())) {
             throw new InvalidBetCombination();
@@ -43,6 +43,7 @@ public class BetFacade {
                 .placedAmount(betDto.amount())
                 .timeOfPlacement(timeOfPlacement)
                 .betType(betDto.betType())
+                .gameId(gameId)
                 .build();
     }
 
