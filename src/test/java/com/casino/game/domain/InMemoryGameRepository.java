@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,7 +23,7 @@ class InMemoryGameRepository implements GameRepository {
     public Game save(Game game) {
         Long id = idCounter++;
         game.setId(id);
-        inMemoryRepo.put(id,game);
+        inMemoryRepo.put(id, game);
         return game;
     }
 
