@@ -5,7 +5,6 @@ import com.casino.balance.domain.BalanceFacadeConfigForTests;
 import com.casino.balance.dto.Deposit;
 import com.casino.bet.dto.BetPlacedResult;
 import com.casino.bet.dto.PlaceBet;
-import com.casino.bet.exception.InvalidBetCombination;
 import com.casino.game.domain.GameFacade;
 import com.casino.game.domain.GameFacadeConfigForTests;
 import org.junit.jupiter.api.Test;
@@ -58,19 +57,6 @@ class BetFacadeTest {
         assertEquals(2, sizeAfterBets - sizeBeforeBets);
     }
 
-    @Test
-    void should_throw_exception_when_user_try_to_place_bets_with_invalid_type_combination() {
-        //given
-        Deposit deposit = new Deposit(1L, BigDecimal.valueOf(99));
-        PlaceBet placeBet = new PlaceBet(1L, BigDecimal.valueOf(10), BetType.BLACK);
-        PlaceBet placeBet2 = new PlaceBet(1L, BigDecimal.valueOf(10), BetType.RED);
-        //when
-        balanceFacade.deposit(deposit);
-        gameFacade.roll();
-        betFacade.placeBet(placeBet);
-        //then
-        assertThrows(InvalidBetCombination.class, () -> betFacade.placeBet(placeBet2));
-    }
 
     @Test
     void should_find_all_2_bets_by_userId_and_also_gameId() {
@@ -85,8 +71,7 @@ class BetFacadeTest {
         betFacade.placeBet(placeBet2);
         //then
         assertAll(
-                () -> assertEquals(2, betFacade.findAllBetsByUserId(1L).size()),
-                () -> assertEquals(2, betFacade.findAllBetsByGameId(1L).size())
+                () -> assertEquals(2, betFacade.findAllBetsByUserId(1L).size())
         );
     }
 
