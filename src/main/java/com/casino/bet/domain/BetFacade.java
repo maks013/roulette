@@ -1,6 +1,7 @@
 package com.casino.bet.domain;
 
 import com.casino.balance.domain.BalanceFacade;
+import com.casino.balance.dto.Deposit;
 import com.casino.balance.dto.Withdraw;
 import com.casino.bet.dto.BetDto;
 import com.casino.bet.dto.BetPlacedResult;
@@ -11,6 +12,7 @@ import com.casino.game.domain.GameFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class BetFacade {
 
     public BetPlacedResult placeBet(PlaceBet placeBet) {
         final LocalDateTime timeOfPlacement = LocalDateTime.now();
-        Long gameId = gameFacade.findGameByTime(timeOfPlacement).id() + 1L;
+        Long gameId = getGameId(timeOfPlacement) + 1L;
 
         if (!isUserBetAllowed(findAllBetsByGameIdAndUserId(gameId, placeBet.userId()), placeBet.betType())) {
             throw new InvalidBetCombination();
@@ -45,6 +47,22 @@ public class BetFacade {
                 .betType(betDto.betType())
                 .gameId(gameId)
                 .build();
+    }
+
+    public void calculateDrawResults(LocalDateTime localDateTime) {
+        final Long gameId = getGameId(localDateTime);
+        final String winningBetType = gameFacade.findGameById(gameId).winningBetType();
+
+        List<BetDto> winningBets = findAllBetsByGameId(gameId).stream()
+                .filter(bet -> bet.betType().equals(winningBetType))
+                .toList();
+
+        for (BetDto bet : winningBets) {
+            BigDecimal wonAmount = BetType.valueOf(bet.betType()).calculateWinningAmount(bet.amount());
+            Deposit depositWonAmount = new Deposit(bet.userId(), wonAmount);
+
+            balanceFacade.deposit(depositWonAmount);
+        }
     }
 
     public List<BetDto> findAllBets() {
@@ -85,5 +103,9 @@ public class BetFacade {
         boolean blackExists = userBets.stream().anyMatch(bet -> bet.betType().equals(BetType.BLACK.toString()));
 
         return (newBetType != BetType.RED || !blackExists) && (newBetType != BetType.BLACK || !redExists);
+    }
+
+    private Long getGameId(LocalDateTime localDateTime) {
+        return gameFacade.findGameByTime(localDateTime).id();
     }
 }
